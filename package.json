@@ -9,7 +9,9 @@
   "author": "Wim Vantomme",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^4.15.0"
+    "eslint": "^4.15.0",
+    "standard": "^10.0.3",
+    "standardjs": "^1.0.0-alpha"
   },
   "dependencies": {
     "mongodb": "^3.0.1"
