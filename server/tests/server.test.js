@@ -4,6 +4,20 @@ const request = require('supertest')
 const {app} = require('./../server')
 const {Todo} = require('./../models/todo')
 
+const todos = [{
+  text: 'First test todo'
+}, {
+  text: 'Second test todo'
+}, {
+  text: 'Should you not do something else?'
+}]
+
+beforeEach((done) => {
+  Todo.remove({}).then(() => {
+    return Todo.insertMany(todos)
+  }).then(() => done())
+})
+
 describe('POST /todos', () => {
   it('should create a new todo', (done) => {
     const text = 'this is a test'
@@ -46,5 +60,17 @@ describe('POST /todos', () => {
           done()
         }).catch((err) => done(err))
       })
+  })
+})
+
+describe('GET /todos', () => {
+  it('should get all todos', (done) => {
+    request(app)
+      .get('/todos')
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todos.length).toBe(3)
+      })
+      .end(done)
   })
 })
